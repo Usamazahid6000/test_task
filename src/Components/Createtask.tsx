@@ -13,10 +13,17 @@ const Createtask = () => {
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     let AddData = [...AddValue];
     AddData.push(inputValue);
-    setAddValue([...AddData]);
+    setAddValue((prevValue) => [...prevValue, inputValue]);
     localStorage.setItem("myArray", JSON.stringify(AddData));
-     navigate("/Listtaskpage");
+    navigate("/Listtaskpage");
   };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("myArray");
+    if (storedData) {
+      setAddValue(JSON.parse(storedData));
+    }
+  }, []);
 
   return (
     <>
